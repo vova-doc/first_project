@@ -1,4 +1,4 @@
-web: python3
+web: python
 import os
 import socketserver
 from http.server import SimpleHTTPRequestHandler
