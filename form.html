@@ -6,11 +6,35 @@
 </head>
 <body>
 <form action="" method="post">
-<p><label> Имя пользователя <input type="text" name="username" size="17" maxlength="12"></label></p>
-<p><label> Пароль <input type="password" name="password" size="20" maxlength="15"></label> </p>
-    <p><label> Адресс электронной почты <input type="email" name="email"></label></p>
+<fieldset>
+    <legend>Личные данные</legend>
+<p><label> Имя пользователя: <br/>
+    <input type="text" name="username" size="17" maxlength="12"></label></p>
+<p><label> Пароль: <br/>
+    <input type="password" name="password" size="20" maxlength="15"></label> </p>
+    <p><label> Адресс электронной почты: <br/>
+        <input type="email" name="email"></label></p>
     <p>Ваше сообщение</p>
-    <p><textarea name="message" cols="25" rows="7"></textarea></p>
+    <p><textarea name="message" cols="25" rows="7"></textarea></p></fieldset>
+
+<fieldset>
+    <legend>Дополнительные вопросы</legend>
+    <p>Какая команда Мстителей ваша любимая?<br/>
+        <select name="team">
+        <option value="secret avengers">Секретные Мстители</option>
+        <option value="avengers">Мстители</option>
+        <option value="new avengers">Новые Мстители</option>
+    </select></p>
+
+<p>Загрузите фото любимого персонажа<br/>
+<input type="file" name="aveng"><br/>
+<input type="submit" value="Загрузить"></p></fieldset>
+
+<fieldset> <legend>Финалочка</legend>
+    <p>Как вы нас нашли?</p>
+    <p>Поисковая выдача<input type="radio" value="poisk" name="istochnik">
+Контекстная реклама<input type="radio" value="reklama" name="istochnik">
+    Социальные сети<input type="radio" value="sm" name="istochnik"></p></fieldset>
 
 <p><input type="submit" value="Отправить"></p>
 </form>
