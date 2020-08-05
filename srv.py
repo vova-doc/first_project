@@ -47,7 +47,7 @@ class MyHandler(SimpleHTTPRequestHandler):
         self.send_header("Content-type", "text/html")
         self.send_header("Content-length", str(len(message)))
         self.end_headers()
-        if isinstance(message, str)
+        if isinstance(message, str):
             message = message.encode()
 
         self.wfile.write(message.encode())

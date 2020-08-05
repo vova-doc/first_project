@@ -6,6 +6,7 @@ print(PORT)
 
 CACHE_AGE = 60 * 60 * 24
 
-Document_DIR = Path(__file__).parent.resolv()
+Documents_DIR = Path(__file__).parent.resolve()
+
 
 
