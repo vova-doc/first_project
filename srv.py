@@ -26,7 +26,7 @@ class MyHandler(SimpleHTTPRequestHandler):
         self.respond(content)
 
     def handle_404(self):
-        msg = """NOT FOUND!!!!!!"""
+        msg = """PAGE NOT FOUND!!!!!!"""
 
         self.respond(msg, code=404,)
 
