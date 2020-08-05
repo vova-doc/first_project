@@ -1,5 +1,7 @@
 import os
 import socketserver
+import settings
+
 from http.server import SimpleHTTPRequestHandler
 
 
@@ -30,9 +32,19 @@ class MyHandler(SimpleHTTPRequestHandler):
 
         self.respond(msg, code=404,)
 
+    def handle_style(self):
+        css_file_path = settings.PROJECT_DIR / "styles" / "style.css"
+        if not css_file.exist():
+            return self.handle_404()
+
+        with css_file.open("r") as fp:
+            css = fp.read()
+
+        self.respond(css, content_type="text/css")
+
     def respond(self, message, code=200):
         self.send_response(code)
-        self.send_header("Content-type", "text/plain")
+        self.send_header("Content-type", "text/html")
         self.send_header("Content-length", str(len(message)))
         self.end_headers()
         self.wfile.write(message.encode())
@@ -44,8 +56,11 @@ class MyHandler(SimpleHTTPRequestHandler):
             self.handle_root()
         elif path == "/hello/":
             self.handle_hello()
+        elif path == "/style/":
+            self.handle_style()
         else:
             self.handle_404()
+
 
     def build_path(self) -> str:
         result = self.path
