@@ -33,7 +33,7 @@ class MyHandler(SimpleHTTPRequestHandler):
         self.respond(msg, code=404,)
 
     def handle_style(self):
-        css_file_path = settings.PROJECT_DIR / "styles" / "style.css"
+        css_file = settings.Documents_DIR / "tms" / "first_project" / "style.css"
         if not css_file.exist():
             return self.handle_404()
 
@@ -47,6 +47,9 @@ class MyHandler(SimpleHTTPRequestHandler):
         self.send_header("Content-type", "text/html")
         self.send_header("Content-length", str(len(message)))
         self.end_headers()
+        if isinstance(message, str)
+            message = message.encode()
+
         self.wfile.write(message.encode())
 
     def do_GET(self):
