@@ -1,7 +1,12 @@
+import os
 import socketserver
 import settings
 
 from http.server import SimpleHTTPRequestHandler
+
+
+PORT = int(os.getenv("PORT", 8000))
+print(PORT)
 
 
 class MyHandler(SimpleHTTPRequestHandler):
@@ -13,6 +18,8 @@ class MyHandler(SimpleHTTPRequestHandler):
             self.handle_root()
         elif path == "/hello/":
             self.handle_hello()
+        elif path == "/style/":
+            self.handle_style()
         else:
             self.handle_404()
 
@@ -23,7 +30,7 @@ class MyHandler(SimpleHTTPRequestHandler):
 
         content = f"""
                 <html>
-                <head><title>Hello ma Page</title></head>
+                <head><title>XXX</title></head>
                 <body>
                 <h1>Hello World!</h1>
                 <p>path: {self.path}</p>
@@ -36,15 +43,27 @@ class MyHandler(SimpleHTTPRequestHandler):
     def handle_404(self):
         msg = """PAGE NOT FOUND!!!!!!"""
 
-        self.respond(msg, code=404, content_type="text/plain")
+        self.respond(msg, code=404,)
 
-    def respond(self, message, code=200, content_type="text/html"):
+    def handle_style(self):
+        css_file = settings.Documents_DIR / "styles" / "style.css"
+        if not css_file.exists():
+            return self.handle_404()
+
+        with css_file.open("r") as fp:
+            css = fp.read()
+
+        self.respond("content_type", "text/css")
+
+    def respond(self, message, code=200):
         self.send_response(code)
-        self.send_header("Content-type", content_type)
+        self.send_header("Content-type", "text/html")
         self.send_header("Content-length", str(len(message)))
-        self.send_header("Cache-control", f"max-age={settings.CACHE_AGE}")
         self.end_headers()
-        self.wfile.write(message.encode())
+        if isinstance(message, str):
+            message = message.encode()
+        self.wfile.write(message)
+
 
     def build_path(self) -> str:
         result = self.path
