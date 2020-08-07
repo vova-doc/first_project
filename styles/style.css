@@ -1,3 +1,9 @@
+h1 {
+    font-size: 35px;
+}
+p {
+    font-family: Vardana, Arial;
+}
 body {
-background-color: red;
+color: blue;
 }

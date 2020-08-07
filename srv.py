@@ -1,18 +1,24 @@
 import socketserver
 import settings
 
+from utils import normalize_path
+
 from http.server import SimpleHTTPRequestHandler
 
 
 class MyHandler(SimpleHTTPRequestHandler):
 
+
+
     def do_GET(self):
-        path = self.build_path()
+        path = normalize_path(self.path)
 
         if path == "/":
             self.handle_root()
         elif path == "/hello/":
             self.handle_hello()
+        elif path == "/style/":
+            self.handle_style()
         else:
             self.handle_404()
 
@@ -38,21 +44,27 @@ class MyHandler(SimpleHTTPRequestHandler):
 
         self.respond(msg, code=404, content_type="text/plain")
 
+    def handle_style(self):
+        css_file = settings.PROJECT_DIR / "styles" / "style.css"
+        if not css_file.exists():
+            return self.handle_404()
+
+        with css_file.open("r") as fp:
+            css = fp.read()
+
+        self.respond(css, content_type="text/css")
+
     def respond(self, message, code=200, content_type="text/html"):
         self.send_response(code)
         self.send_header("Content-type", content_type)
         self.send_header("Content-length", str(len(message)))
         self.send_header("Cache-control", f"max-age={settings.CACHE_AGE}")
         self.end_headers()
-        self.wfile.write(message.encode())
 
-    def build_path(self) -> str:
-        result = self.path
+        if isinstance(message, str):
+            message = message.encode()
+        self.wfile.write(message)
 
-        if self.path[-1] != "/":
-            result = f"{result}/"
-
-        return result
 
 
 if __name__ == "__main__":
