@@ -1,13 +1,15 @@
 import traceback
 from http.server import SimpleHTTPRequestHandler
+
 import settings
 from errors import MethodNotAllowed
 from errors import NotFound
 from utils import normalize_path
 from utils import to_bytes
+from utils import read_static
 
 
-class MyHandler(SimpleHTTPRequestHandler):
+class MyHttp(SimpleHTTPRequestHandler):
     def do_GET(self):
         path = normalize_path(self.path)
 
