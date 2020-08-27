@@ -49,7 +49,7 @@ class MyHttp(SimpleHTTPRequestHandler):
                 <body>
                 <p><a href="/"><span>"Home" Avengers</span></a></p>
                 <h1>Hello {name}!</h1>
-                <p>you are {age} yers old</p>
+                <p>you are "{age}" yers old</p>
                 <p>path: {self.path}</p>
 
                 <form>
