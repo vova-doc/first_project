@@ -2,28 +2,32 @@ import traceback
 from http.server import SimpleHTTPRequestHandler
 
 import settings
+from custom_types import Endpoint
 from errors import MethodNotAllowed
 from errors import NotFound
+from utils import get_content_type
+from utils import get_name_from_qs
+from utils import get_age_from_qs
 from utils import to_bytes
-from utils import normalize_path
+from utils import read_static
 
 
 class MyHttp(SimpleHTTPRequestHandler):
     def do_GET(self):
-        path = normalize_path(self.path)
+        endpoint = Endpoint.from_path(self.path)
+        content_type = get_content_type(endpoint.file_name)
 
-        handlers = {
-            "/": self.handle_root,
-            "/hello/": self.handle_hello,
-            "/style/": self.handle_style,
-            "/ima/": self.handle_image,
-            "/ave/": self.handle_ima,
-            "/0/": self.handle_zde,
+        endpoints = {
+            "/": [self.handle_static, ["index.html", "text/html"]],
+            "/0/": [self.handle_zde, []],
+            "/hello/": [self.handle_hello, [endpoint]],
+            "/i/": [self.handle_static, [f"images/{endpoint.file_name}", content_type]],
+            "/s/": [self.handle_static, [f"styles/{endpoint.file_name}", content_type]],
         }
 
         try:
-            handler = handlers[path]
-            handler()
+            handler, args = endpoints[endpoint.normal]
+            handler(*args)
         except (NotFound, KeyError):
             self.handle_404()
         except MethodNotAllowed:
@@ -31,18 +35,31 @@ class MyHttp(SimpleHTTPRequestHandler):
         except Exception:
             self.handle_500()
 
+    def handle_static(self, file_path, content_type):
+        content = read_static(file_path)
+        self.respond(content, content_type=content_type)
 
-    def handle_root(self):
-        return super().do_GET()
-
-    def handle_hello(self):
+    def handle_hello(self, endpoint):
+        name = get_name_from_qs(endpoint.query_string)
+        age = get_age_from_qs(endpoint.query_string)
 
         content = f"""
                 <html>
-                <head><title>Hello ma Page</title></head>
+                <head><title>Hello Page</title></head>
                 <body>
-                <h1>Hello World!</h1>
+                <p><a href="/"><span>"Home" Avengers</span></a></p>
+                <h1>Hello {name}!</h1>
+                <p>you are {age} yers old</p>
                 <p>path: {self.path}</p>
+
+                <form>
+                <label for="xxx-id">Your name:</label>
+                <input type="text" name="xxx" id="xxx-id">
+                <label for="yyy-id">Your age:</label>
+                <input type="text" name="yyy" id="yyy-id">
+                <button type="submit">Great</button>
+                </form>
+                <p><img src="/i/end.jpg" alt="Avengers" align="" width="" height=""></p>
                 </body>
                 </html>
                 """
@@ -51,47 +68,18 @@ class MyHttp(SimpleHTTPRequestHandler):
 
     def handle_zde(self):
         x = 1 / 0
+        print(x)
 
     def handle_404(self):
         msg = """PAGE NOT FOUND!!!!!!"""
-
         self.respond(msg, code=404, content_type="text/plain")
 
     def handle_405(self):
         self.respond("", code=405, content_type="text/plain")
 
     def handle_500(self):
-        self.respond(traceback.format_exc(), code=500, content_type="text/plain")
-
-    def handle_image(self):
-        img_file = settings.PROJECT_DIR / "images" / "ima.jpg"
-        if not img_file.exists():
-            return self.handle_404()
-
-        with img_file.open("rb") as fp:
-            img = fp.read()
-
-        self.respond(img, content_type="image/jpg")
-
-    def handle_ima(self):
-        image_file = settings.PROJECT_DIR / "images" / "ave.jpg"
-        if not image_file.exists():
-            return self.handle_404()
-
-        with image_file.open("rb") as fp:
-            img = fp.read()
-
-        self.respond(img, content_type="image/jpg")
-
-    def handle_style(self):
-        css_file = settings.PROJECT_DIR / "styles" / "style.css"
-        if not css_file.exists():
-            return self.handle_404()
-
-        with css_file.open("r") as fp:
-            css = fp.read()
-
-        self.respond(css, content_type="text/css")
+        msg = traceback.format_exc()
+        self.respond(msg, code=500, content_type="text/plain")
 
     def respond(self, message, code=200, content_type="text/html"):
         payload = to_bytes(message)

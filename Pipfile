@@ -9,6 +9,8 @@ httpie = "*"
 [packages]
 django = "*"
 pytest = "*"
+selenium = "*"
+chromedriver = "*"
 
 [requires]
 python_version = "3.8"
