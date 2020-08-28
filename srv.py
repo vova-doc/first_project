@@ -42,6 +42,7 @@ class MyHttp(SimpleHTTPRequestHandler):
     def handle_hello(self, endpoint):
         name = get_name_from_qs(endpoint.query_string)
         age = get_age_from_qs(endpoint.query_string)
+        years = 2020 - age
 
         content = f"""
                 <html>
@@ -49,7 +50,7 @@ class MyHttp(SimpleHTTPRequestHandler):
                 <body>
                 <p><a href="/"><span>"Home" Avengers</span></a></p>
                 <h1>Hello {name}!</h1>
-                <p>you are "{age}" yers old</p>
+                <p>You was Born at "{years}" </p>
                 <p>path: {self.path}</p>
 
                 <form>

@@ -6,11 +6,7 @@ from errors import NotFound
 
 
 def to_bytes(text: AnyStr) -> bytes:
-    """
-    Safely converts any string to bytes
-    :param text: any string
-    :return: bytes
-    """
+
     if isinstance(text, bytes):
         return text
     if not isinstance(text, str):
@@ -21,12 +17,6 @@ def to_bytes(text: AnyStr) -> bytes:
     return result
 
 def read_static(path: str) -> bytes:
-    """
-         Reads and returns the content of static file.
-         If there is no file, then NotFound exception is raised.
-         :param path: path to static content
-         :return: bytes of content
-         """
 
     static_obj = settings.STATIC_DIR / path
     if not static_obj.is_file():
@@ -48,7 +38,7 @@ def get_content_type(file_path: str) -> str:
 
 def get_name_from_qs(qs: str) -> str:
     if not qs:
-        return "world"
+        return "World"
 
     pairs = qs.split("&")
 
@@ -57,13 +47,14 @@ def get_name_from_qs(qs: str) -> str:
             continue
         key, value = pair.split("=")
         if key == "xxx":
+            if not value:
+                return "World"
             return value
+    return "World"
 
-    return "world"
-
-def get_age_from_qs(qs: str) -> str:
+def get_age_from_qs(qs: str) -> int:
     if not qs:
-        return ""
+        return 2020
 
     pairs = qs.split("&")
 
@@ -72,6 +63,7 @@ def get_age_from_qs(qs: str) -> str:
             continue
         key, value = pair.split("=")
         if key == "yyy":
-            return value
-
-    return ""
+            if not value:
+                return 2020
+            return int(value)
+    return 2020
