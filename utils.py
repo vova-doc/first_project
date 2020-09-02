@@ -1,5 +1,6 @@
 import mimetypes
 from typing import AnyStr
+from urllib.parse import parse_qs
 
 import settings
 from errors import NotFound
@@ -36,34 +37,38 @@ def get_content_type(file_path: str) -> str:
     content_type, _ = mimetypes.guess_type(file_path)
     return content_type
 
-def get_name_from_qs(qs: str) -> str:
-    if not qs:
-        return "World"
 
-    pairs = qs.split("&")
+def get_user_data(query: str):
 
-    for pair in pairs:
-        if "=" not in pair:
-            continue
-        key, value = pair.split("=")
-        if key == "xxx":
-            if not value:
-                return "World"
-            return value
-    return "World"
+    from custom_types import User
+    anonymous = User.default()
 
-def get_age_from_qs(qs: str) -> int:
-    if not qs:
-        return 2020
+    try:
+        key_value_pairs = parse_qs(query, strict_parsing=True)
 
-    pairs = qs.split("&")
+    except ValueError:
+        return anonymous
 
-    for pair in pairs:
-        if "=" not in pair:
-            continue
-        key, value = pair.split("=")
-        if key == "yyy":
-            if not value:
-                return 2020
-            return int(value)
-    return 2020
+    name_values = key_value_pairs.get("name", [anonymous.name])
+    name = name_values[0]
+    age_values = key_value_pairs.get("age", [anonymous.age])
+    age = age_values[0]
+
+    if isinstance(age, str) and age.isdecimal():
+        age = int(age)
+
+    return User(name=name, age=age)
+
+# def get_user_data(qs: str) -> User:
+#     qp = parse_qs(qs)
+#
+#     default_list_of_names = ["World"]
+#     default_list_of_ages = [0]
+#
+#     list_of_names = qp.get("name", default_list_of_names)
+#     list_of_ages = qp.get("age", default_list_of_ages)
+#
+#     name = list_of_names[0]
+#     age = int(list_of_ages[0])
+#
+#     return User(name=name, age=age)
