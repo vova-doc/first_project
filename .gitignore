@@ -74,6 +74,7 @@ instance/
 docs/_build/
 
 # PyBuilder
+storage/*.txt
 target/
 
 # Jupyter Notebook
