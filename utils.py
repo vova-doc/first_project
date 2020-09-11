@@ -54,10 +54,58 @@ def get_user_data(query: str):
     age_values = key_value_pairs.get("age", [anonymous.age])
     age = age_values[0]
 
+    errors = {}
+
+    if not name_valid(name):
+        errors["name"] = "name not valid"
+    if not age_valid(age):
+        errors["age"] = "age not valid"
+    if errors:
+        raise ValueError(errors)
+
     if isinstance(age, str) and age.isdecimal():
         age = int(age)
 
+
     return User(name=name, age=age)
+
+def name_valid(value: str) -> bool:
+    not_empty = bool(value)
+    has_letters = not value.isdecimal()
+    normal_length = 3 <= len(value) <= 20
+    ok = all([not_empty, has_letters, normal_length])
+    return ok
+
+def age_valid(value: str) -> bool:
+    if not value:
+        return False
+    if not value.isdecimal():
+        return False
+    value = int(value)
+    if value > 0:
+        return False
+    else:
+        return True
+
+def to_str(text: AnyStr) -> str:
+    result = text
+
+    if not isinstance(text, (str, bytes)):
+        result = str(text)
+
+    if isinstance(result, bytes):
+        result = result.decode()
+
+    return result
+    #Внизу такой же код
+    # ok = all([value, value.isdecimal(), int(value)])
+    # return ok
+
+
+
+
+
+
 
 # def get_user_data(qs: str) -> User:
 #     qp = parse_qs(qs)

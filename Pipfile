@@ -11,6 +11,7 @@ django = "*"
 pytest = "*"
 selenium = "*"
 chromedriver = "*"
+jinja2 = "*"
 
 [requires]
 python_version = "3.8"

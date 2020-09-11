@@ -1,0 +1,28 @@
+<html>
+<head><title>Hello Page</title></head>
+<body>
+<p><a href="/"><span>"Home" Avengers</span></a></p>
+<h1>Hello {{name_saved}}!</h1>
+<h2>You was Born at {{year}} </h2>
+
+
+ <form method="post" action="/hello-update">
+     <p><label class="{{class_for_name}}" for="name-id" style="grid-area: gi-name-label">{{label_for_name}}</label>
+     <input id="name-id" name="name" style="grid-area: gi-name-input" type="text" value="{{name_new}}"></p>
+
+     <p><label class="{{class_for_age}}" for="age-id" style="grid-area: gi-age-label">{{label_for_age}}</label>
+     <input id="age-id" name="age" style="grid-area: gi-age-input" type="text" value="{{age_new}}"></p>
+
+     <button id="greet-button-id" style="grid-area: gi-submit" type="submit">Greet</button>
+ </form>
+
+<form method="post" action="/hello-reset">
+    <p><label> Delete all Data!! </br>
+        <button id="reset-button-id" type="submit">Reset</button>
+    </label>
+    </p>
+</form>
+
+<p><img src="/i/end.jpg" alt="Avengers" align="" width="" height=""></p>
+</body>
+</html>
