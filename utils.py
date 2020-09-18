@@ -12,7 +12,6 @@ import settings
 from const import SESSION_AGE, THEMES, DEFAULT_THEME
 from const import SESSION_COOKIE
 from errors import NotFound
-from consts import THEMES
 
 
 def to_bytes(text: AnyStr) -> bytes:
