@@ -1,5 +1,13 @@
 <html>
-<head><title>Hello Page</title></head>
+<head>
+    <title>Hello Page</title>
+     <link href="/s/theme_{{ theme }}.css" rel="stylesheet" type="text/css">
+
+     <form method="post" action="/theme"><p>
+         <button id="theme-button" type="submit">Change theme</button>
+    </p></form>
+
+</head>
 <body>
 <p><a href="/"><span>"Home" Avengers</span></a></p>
 <h1>Hello {{name_saved}}!</h1>
