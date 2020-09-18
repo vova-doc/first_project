@@ -1,6 +1,7 @@
 import json
 import os
 from http import cookies
+from pathlib import Path
 from typing import Dict
 from typing import Optional
 import mimetypes
@@ -11,6 +12,7 @@ import settings
 from const import SESSION_AGE, THEMES, DEFAULT_THEME
 from const import SESSION_COOKIE
 from errors import NotFound
+from consts import THEMES
 
 
 def to_bytes(text: AnyStr) -> bytes:
