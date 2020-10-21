@@ -24,7 +24,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = _ds.SECRET_KEY
 
-DEBUG = _ds.DEBUG
 
 ALLOWED_HOSTS = _ds.ALLOWED_HOSTS + ["localhost", "127.0.0.1"]
 
