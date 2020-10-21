@@ -1,3 +1,3 @@
-web: python src/manage.py runserver $PORT
-relaise: python src/manage.py migrate
+web:pipenv run python src/manage.py runserver $PORT
+relaise:pipenv run python src/manage.py migrate
 
