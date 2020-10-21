@@ -1,20 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
- <!-- добавление css стилей -->
- <link rel="stylesheet" type="text/css" href="/s/style.css/">
-    <title>Avengers</title>
-</head>
+{% extends "_base.html" %}
+
+
+{% load static %}
+
+
+{% block title %}Home page{% endblock %}
+
+
+{% block body %}
+
 <body>
-<nav>
-    <p><a href="/hello"><span>"Hello" Avengers</span></a></p>
-</nav>
 <!--оглавление-->
  <h1>Мстители!</h1>
 
 <!--ссылка на фото, название, размещение, размеры-->
- <img src="/i/ima.jpg" alt="Avengers" align="right" width="" height="">
+<img src="{% static 'images/ima.jpg' %}" alt="Avengers" align="right" type="image/jpg">
 
  <p>    <em><strong>«Мстители»</strong></em> (англ. Avengers) — элитная команда супергероев из комиксов компании Marvel Comics.
      Она была создана писателем Стэном Ли и художником Джеком Кирби и впервые появилась в комиксе
@@ -66,7 +66,7 @@
    <li> Человек-Муравей (Скотт Лэнг)</li>
 </ol>
 
-<img src="/i/ave.jpg" alt="Avengers" align="right" width="350" height="350">
+<img src="{% static 'images/ave.jpg' %}" alt="Avengers" align="right" width="350" height="350" type="image/jpg">
 
  <p><strong>Новые Мстители</strong> (англ. New Avengers) — Команда собранная Люком Кейджем.</p>
 <!--таблица с точкой-->
@@ -149,3 +149,5 @@
 <p><a href="zhelezkovvladimir@gmail.com">Остались вопросы? Напишите мне и я вам помогу</a></p>
 </body>
 </html>
+
+{% endblock %}

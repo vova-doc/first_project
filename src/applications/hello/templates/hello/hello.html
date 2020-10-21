@@ -1,0 +1,45 @@
+{% extends "_base.html" %}
+
+
+{% load static %}
+
+
+{% block title %}Hello app{% endblock %}
+
+
+{% block head %}
+     <link href="{% static '/styles/theme_light.css' %}" rel="stylesheet" type="text/css">
+
+     <form method="post" action="/theme"><p>
+         <button id="theme-button" type="submit">Change theme</button>
+    </p></form>
+{% endblock %}
+
+{% block body %}
+<h1>Hello {{ name_saved|default:"Ananymous" }}!</h1>
+{% if year %}
+<h2>You was Born at {{ year }} </h2>
+{% endif %}
+
+ <form action="{% url 'hello:update' %}" method="post">
+<!--     <p><label class="{{class_for_name}}" for="name-id" style="grid-area: gi-name-label">{{label_for_name}}</label>-->
+<!--     <input id="name-id" name="name" style="grid-area: gi-name-input" type="text" value="{{name_new}}"></p>-->
+
+<!--     <p><label class="{{class_for_age}}" for="age-id" style="grid-area: gi-age-label">{{label_for_age}}</label>-->
+<!--     <input id="age-id" name="age" style="grid-area: gi-age-input" type="text" value="{{age_new}}"></p>-->
+    {{form.as_ul}}
+     <button id="greet-button-id" style="grid-area: gi-submit" type="submit">Greet</button>
+     {%csrf_token%}
+ </form>
+
+<form method="post" action="{% url 'hello:reset'%}">
+    <p><label> Delete all Data!! </br>
+        <button id="reset-button-id" type="submit">Reset</button>
+    </label>
+    </p>
+</form>
+<img src="{% static 'images/end.jpg' %}" rel="shortcut icon" type="image/jpg">
+</body>
+</html>
+
+{% endblock %}
