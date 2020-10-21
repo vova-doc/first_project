@@ -42,12 +42,14 @@ from django.urls import path, include
 #         content = f.read()
 #     return HttpResponse(content, content_type="image.jpg")
 
-
+def trigger_error(request):
+    division_by_zero = 1 / 0
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("hello/", include("applications.hello.urls")),
     path("", include("applications.home.urls")),
+    path("sentry-debug/", trigger_error),
     # path("s/style.css/", styles),
     # path("i/ave.jpg/", images1),
     # path("i/ima.jpg/", images2),

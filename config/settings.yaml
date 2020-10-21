@@ -18,6 +18,7 @@ default:
     - src/project/templates
   PROJECT_NAME: ""
   SECRET_KEY: ""
+  SENTRY_DSN: ""
   TEMPLATE_ENGINE: "Django"
   VENV_SYNTHETIC: false
 
