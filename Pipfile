@@ -12,6 +12,10 @@ pytest = "*"
 selenium = "*"
 chromedriver = "*"
 jinja2 = "*"
+whitenoise = "*"
+dynaconf = {extras = ["yaml"], version = "*"}
+dj-config-url = "*"
+psycopg2-binary = "*"
 
 [requires]
 python_version = "3.8"

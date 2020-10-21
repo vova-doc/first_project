@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+ <!-- добавление css стилей -->
+ <link href="{% static 'styles/style.css' %}" rel="stylesheet" type="text/css">
+    <title>Avengers {% block title %}{% endblock %}</title>
+    {% block head %}{% endblock %}
+</head>
+<body>
+
+<nav>
+    <a href="{% url 'home:index' %}"><span>Info</span></a> |
+    <a href="{% url 'hello:index' %}"><span>"Hello" Avenger</span></a>
+</nav>
+ {% block body %}{% endblock %}
+</body>
+</html>

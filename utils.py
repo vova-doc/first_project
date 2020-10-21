@@ -25,6 +25,7 @@ def to_bytes(text: AnyStr) -> bytes:
     result = text.encode()
     return result
 
+# Функция, открывает все картинки, HTML and CSS файлы.
 def read_static(path: str) -> bytes:
 
     static_obj = settings.STATIC_DIR / path
