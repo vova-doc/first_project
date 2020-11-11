@@ -11,9 +11,13 @@
 <body>
 
 <nav>
+    <a href="{% url 'admin:index' %}"><span>Admin</span></a> |
     <a href="{% url 'home:index' %}"><span>Info</span></a> |
-    <a href="{% url 'hello:index' %}"><span>"Hello" Avenger</span></a>
+    <a href="{% url 'hello:index' %}"><span>"Hello" Avenger</span></a> |
+    <a href="{% url 'blog:index' %}"><span>Blog</span></a> |
+
 </nav>
- {% block body %}{% endblock %}
+    {% block body %}
+    {% endblock %}
 </body>
 </html>

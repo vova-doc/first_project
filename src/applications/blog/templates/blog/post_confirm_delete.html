@@ -1,0 +1,26 @@
+{% extends "_base.html" %}
+
+
+{% load static %}
+
+
+{% block title %} New Blog Post {% endblock %}
+
+
+{% block body %}
+
+<body>
+<h1> Delete Post</h1>
+<p>Are you sure to delete this?</p>
+
+       <form action="{% url 'blog:delete-post' object.pk %}" method="post">
+         {{ form.as_p }}
+         {% csrf_token %}
+         <button type="submit">Yes, delete</button>
+       </form>
+<!--оглавление-->
+
+<!--ссылка на фото, название, размещение, размеры-->
+</body>
+
+{% endblock %}

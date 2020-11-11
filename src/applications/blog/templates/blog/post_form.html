@@ -1,0 +1,23 @@
+{% extends "_base.html" %}
+
+
+{% load static %}
+
+
+{% block title %} New Blog Post {% endblock %}
+
+
+{% block body %}
+
+<body>
+<!--оглавление-->
+ <h1>BLOG</h1>
+<!--ссылка на фото, название, размещение, размеры-->
+<img src="{% static 'images/ima.jpg' %}" alt="Avengers" align="right" type="image/jpg">
+</body>
+<form action="{{ action_url }}" method="post">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <button type="submit">{{ action_name }}</button>
+  </form>
+{% endblock %}

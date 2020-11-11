@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     # ниже регестрация своих приложений
     "applications.hello.apps.HelloConfig",
     "applications.home.apps.HomeConfig",
+    "applications.blog.apps.BlogConfig",
 ]
 
 MIDDLEWARE = [

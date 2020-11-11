@@ -1,0 +1,28 @@
+{% extends "_base.html" %}
+
+
+{% load static %}
+
+
+{% block title %} {{object.title}} {% endblock %}
+
+
+{% block body %}
+
+<body>
+</body>
+
+{%for obj in object_list%}
+<article class="post">
+ <div class="post-data">
+ <p><span class="post-title">{{ obj.title }}</span></p>
+ <p><span class="post-content">{{ obj.content|truncatewords:4 }}</span></p>
+ <p><span class="post-metadata">{{ obj.created_at|date:'G:i l, j E Y' }}</span></p>
+ </div>
+ <div class="post-controls">
+  <a href="{% url 'blog:update-post' obj.pk %}"><span class="post-control">Edit</span></a>
+  <a href="{% url 'blog:delete-post' obj.pk %}"><span class="post-control">Delete</span></a>
+ </div>
+</article>
+{% endfor %}
+{% endblock %}

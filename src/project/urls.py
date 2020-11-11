@@ -48,6 +48,7 @@ def trigger_error(request):
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("hello/", include("applications.hello.urls")),
+    path("b/", include("applications.blog.urls")),
     path("", include("applications.home.urls")),
     path("sentry-debug/", trigger_error),
     # path("s/style.css/", styles),
