@@ -13,6 +13,8 @@ default:
   DIRS_SOURCES:
     - src
   DIRS_TEMPLATES:
+    - src/applications/bots/templates
+    - src/applications/blog/templates
     - src/applications/hello/templates
     - src/applications/home/templates
     - src/project/templates
@@ -21,17 +23,21 @@ default:
   SENTRY_DSN: ""
   TEMPLATE_ENGINE: "Django"
   VENV_SYNTHETIC: false
+  TG_BOT_TOKEN: ""
+  HOST: ""
 
 
 development:
   DEBUG: true
   PORT: 8000
   SECRET_KEY: "1"
+  HOST: "localhost"
 
 
 heroku:
   ALLOWED_HOSTS:
     - "first-project-doc.herokuapp.com"
+  HOST: "first-project-doc.herokuapp.com"
   VENV_SYNTHETIC: true
 
 

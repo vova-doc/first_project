@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 from django.contrib import admin
@@ -41,9 +42,25 @@ from django.urls import path, include
 #     with image.open("rb") as f:
 #         content = f.read()
 #     return HttpResponse(content, content_type="image.jpg")
+from django.views import View
+from django.views.decorators.csrf import csrf_exempt
+
 
 def trigger_error(request):
     division_by_zero = 1 / 0
+
+# @csrf_exempt
+# def tg_view(requests: HttpRequest, *args, **kwargs):
+#     try:
+#         js = json.loads(requests.body)
+#         print(requests.body)
+#     finally:
+#         return HttpResponse()
+#
+# class TgView(View):
+#     def post(self, request, *args, **kwargs):
+#         return tg_view(self.request, *args, **kwargs)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -51,6 +68,8 @@ urlpatterns = [
     path("b/", include("applications.blog.urls")),
     path("", include("applications.home.urls")),
     path("sentry-debug/", trigger_error),
+    path("bots/", include("applications.bots.urls")),
+    # path("tg/", TgView.as_view())
     # path("s/style.css/", styles),
     # path("i/ave.jpg/", images1),
     # path("i/ima.jpg/", images2),

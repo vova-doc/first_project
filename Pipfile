@@ -18,6 +18,8 @@ dj-config-url = "*"
 psycopg2-binary = "*"
 gunicorn = "*"
 sentry-sdk = "*"
+requests = "*"
+telegram = "*"
 
 [requires]
 python_version = "3.8"
